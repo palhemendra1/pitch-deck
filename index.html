@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AINexForge | VC Pitch Deck</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0066FF;
+            --secondary: #00F2FE;
+            --dark: #0A0F1D;
+            --gray: #F4F7FA;
+            --text-main: #1A1A1A;
+            --text-muted: #5E6D82;
+            --white: #FFFFFF;
+            --accent-gradient: linear-gradient(135deg, #0066FF 0%, #00F2FE 100%);
+            --glass: rgba(255, 255, 255, 0.9);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+        }
+
+        /* Presentation Container */
+        .deck-container {
+            width: 100%;
+            height: 100vh;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
+        }
+
+        .slide {
+            height: 100vh;
+            width: 100%;
+            scroll-snap-align: start;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem;
+            position: relative;
+            background: var(--white);
+            overflow: hidden;
+        }
+
+        .slide:nth-child(even) {
+            background: #fafbfc;
+        }
+
+        .slide-dark {
+            background: var(--dark) !important;
+            color: var(--white);
+        }
+
+        /* Content Layout */
+        .content {
+            max-width: 1100px;
+            width: 100%;
+            z-index: 2;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .tagline {
+            display: inline-block;
+            padding: 6px 16px;
+            background: var(--accent-gradient);
+            color: white;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1.5rem;
+        }
+
+        h1 { font-size: 3.5rem; line-height: 1.1; margin-bottom: 1.5rem; }
+        h2 { font-size: 2.8rem; margin-bottom: 2rem; color: var(--dark); }
+        .slide-dark h2 { color: var(--white); }
+        p { font-size: 1.2rem; color: var(--text-muted); line-height: 1.6; max-width: 800px; }
+        .slide-dark p { color: #A0AEC0; }
+
+        /* Grid layouts */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover { transform: translateY(-10px); }
+
+        .slide-dark .card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .number {
+            font-size: 3rem;
+            font-weight: 800;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        /* Abstract Elements */
+        .bg-glyph {
+            position: absolute;
+            font-size: 30rem;
+            font-weight: 900;
+            opacity: 0.03;
+            right: -5%;
+            bottom: -10%;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: var(--accent-gradient);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 700;
+            margin-top: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            box-shadow: 0 10px 20px rgba(0, 102, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        /* Slide Specific Styles */
+        .founder-box {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .founder-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: #ddd url('https://picsum.photos/200') center/cover;
+            border: 5px solid white;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+
+        .stats-item {
+            border-left: 4px solid var(--primary);
+            padding-left: 1.5rem;
+        }
+
+        .stats-item h4 { font-size: 2.5rem; color: var(--primary); }
+
+        footer {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255,255,255,0.4);
+            font-size: 0.8rem;
+            z-index: 100;
+            width: 100%;
+            text-align: center;
+            pointer-events: none;
+        }
+
+        .slide:not(.slide-dark) ~ footer {
+            color: rgba(0,0,0,0.3);
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: rgba(255,255,255,0.1);
+            width: 100%;
+            z-index: 1000;
+        }
+
+        #progress-bar {
+            height: 100%;
+            width: 0;
+            background: var(--accent-gradient);
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
+            .slide { padding: 2rem; }
+            h1 { font-size: 2.2rem; }
+            h2 { font-size: 1.8rem; }
+            .grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="progress-container">
+        <div id="progress-bar"></div>
+    </div>
+
+    <div class="deck-container" id="deck">
+        
+        <!-- Slide 1: Title -->
+        <section class="slide slide-dark">
+            <div class="content" style="text-align: center;">
+                <div class="tagline">Confidential VC Briefing</div>
+                <h1>Bridging the Complexity Gap:<br><span style="background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">The Future of Enterprise AI</span></h1>
+                <p style="margin: 2rem auto; font-size: 1.5rem;">AINexForge – The Unified Operating Layer for Global AI Adoption.</p>
+                <div style="margin-top: 4rem;">
+                    <strong>Hemendra Pal</strong><br>
+                    Founder & CEO (MBA, M.Eng)
+                </div>
+            </div>
+            <div class="bg-glyph">NEX</div>
+        </section>
+
+        <!-- Slide 2: The Problem -->
+        <section class="slide">
+            <div class="content">
+                <div class="tagline" style="background: #E53E3E;">Market Friction</div>
+                <h2>Why 80% of Enterprise AI Projects Fail</h2>
+                <div class="grid">
+                    <div class="card">
+                        <div class="number">01</div>
+                        <h3>Fragmentation</h3>
+                        <p>Too many LLMs, APIs, and tools create an unmanageable tech stack for legacy systems.</p>
+                    </div>
+                    <div class="card">
+                        <div class="number">02</div>
+                        <h3>The Trust Gap</h3>
+                        <p>Security concerns regarding data privacy and residency prevent deep AI integration.</p>
+                    </div>
+                    <div class="card">
+                        <div class="number">03</div>
+                        <h3>Talent Scarcity</h3>
+                        <p>Companies lack specialized engineers to build custom AI pipelines from scratch.</p>
+                    </div>
+                </div>
+                <p style="margin-top: 3rem; font-style: italic;">"Japanese firms are eager for DX (Digital Transformation) but are hitting a 'Complexity Wall'."</p>
+            </div>
+        </section>
+
+        <!-- Slide 3: The Solution -->
+        <section class="slide slide-dark">
+            <div class="content">
+                <div class="tagline">Our Innovation</div>
+                <h2>Your AI Infrastructure, Simplified</h2>
+                <p>AINexForge is a low-code/no-code orchestration platform that allows enterprises to deploy, manage, and scale AI agents in hours, not months.</p>
+                <div class="grid">
+                    <div class="card">
+                        <h3>Universal Connect</h3>
+                        <p>One platform to connect any LLM to private enterprise data securely.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Rapid Deployment</h3>
+                        <p>Ready-to-use modules for Finance, Supply Chain, and Legal teams.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-glyph">CORE</div>
+        </section>
+
+        <!-- Slide 4: Market Opportunity -->
+        <section class="slide">
+            <div class="content">
+                <div class="tagline">Market Potential</div>
+                <h2>Tapping into Japan’s $25B+ DX Market</h2>
+                <div class="grid">
+                    <div class="stats-item">
+                        <h4>$500B+</h4>
+                        <p>Global AI Market TAM</p>
+                    </div>
+                    <div class="stats-item">
+                        <h4>$20B+</h4>
+                        <p>Japanese DX Sector (SAM)</p>
+                    </div>
+                    <div class="stats-item">
+                        <h4>24%</h4>
+                        <p>YoY Projected Growth in Asia</p>
+                    </div>
+                </div>
+                <div class="card" style="margin-top: 3rem; background: #f0f7ff;">
+                    <p><strong>The "Japan Edge":</strong> Japan is the fastest-growing market for Generative AI adoption in the manufacturing and financial sectors, seeking reliable, secure alternatives.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 5: Technology -->
+        <section class="slide slide-dark">
+            <div class="content">
+                <div class="tagline">Architecture</div>
+                <h2>Enterprise-Grade Reliability & Security</h2>
+                <div class="grid">
+                    <div class="card">
+                        <h3>Modular API Engine</h3>
+                        <p>Seamless integration with legacy ERP and CRM systems without refactoring.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Security First</h3>
+                        <p>SOC2/GDPR compliance; deployment in private clouds (VPC) or on-premise.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Model Agnostic</h3>
+                        <p>Switch between OpenAI, Anthropic, or Local LLMs (Llama 3) with one click.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 6: Traction -->
+        <section class="slide">
+            <div class="content">
+                <div class="tagline">Momentum</div>
+                <h2>Validation & Early Wins</h2>
+                <div class="grid">
+                    <div class="card">
+                        <h3>Pilot Programs</h3>
+                        <p>3 Active pilots with mid-sized manufacturing firms in Europe and India.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Beta Launch</h3>
+                        <p>Over 1,000+ waitlisted enterprise users; 98% retention rate in sandbox environments.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Strategic Interest</h3>
+                        <p>MoU discussions underway with a leading Georgia-based technology think tank.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 7: Competitive Landscape -->
+        <section class="slide slide-dark">
+            <div class="content">
+                <div class="tagline">The Edge</div>
+                <h2>A Class of Our Own</h2>
+                <table style="width:100%; border-collapse: collapse; margin-top: 2rem;">
+                    <tr style="border-bottom: 2px solid rgba(255,255,255,0.1);">
+                        <th style="padding: 1.5rem; text-align: left;">Feature</th>
+                        <th style="padding: 1.5rem;">Global Rivals</th>
+                        <th style="padding: 1.5rem; background: rgba(0,102,255,0.2); color: var(--secondary);">AINexForge</th>
+                    </tr>
+                    <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                        <td style="padding: 1.5rem;">Enterprise Governance</td>
+                        <td style="padding: 1.5rem; text-align: center;">Medium</td>
+                        <td style="padding: 1.5rem; text-align: center; color: var(--secondary);">Highest</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                        <td style="padding: 1.5rem;">Japan Localization</td>
+                        <td style="padding: 1.5rem; text-align: center;">Low</td>
+                        <td style="padding: 1.5rem; text-align: center; color: var(--secondary);">Native / Strategic</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 1.5rem;">Cost Efficiency</td>
+                        <td style="padding: 1.5rem; text-align: center;">Variable</td>
+                        <td style="padding: 1.5rem; text-align: center; color: var(--secondary);">Predictable SaaS</td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+
+        <!-- Slide 8: Business Model -->
+        <section class="slide">
+            <div class="content">
+                <div class="tagline">Revenue Stream</div>
+                <h2>Scalable Growth Architecture</h2>
+                <div class="grid">
+                    <div class="card">
+                        <h3>Professional</h3>
+                        <p>Per-user/month for SMEs seeking standard AI orchestration.</p>
+                    </div>
+                    <div class="card">
+                        <div class="tagline" style="font-size: 0.6rem; margin-bottom: 0.5rem;">Most Scalable</div>
+                        <h3>Enterprise</h3>
+                        <p>Custom licensing + dedicated 24/7 technical support and governance.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Platform Fee</h3>
+                        <p>Volume-based pricing on API calls and tokens processed.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 9: Team -->
+        <section class="slide slide-dark">
+            <div class="content">
+                <div class="tagline">The Global Brain</div>
+                <h2>Leadership & Technical Depth</h2>
+                <div class="founder-box">
+                    <div class="founder-img"></div>
+                    <div>
+                        <h3>Hemendra Pal</h3>
+                        <p style="color: var(--secondary);">Founder & CEO (MBA, M.Eng)</p>
+                        <p style="font-size: 1rem; margin-top: 1rem;">Decade of leadership across the US, UK, India, and Georgia. Strategic expert in bridging innovation with enterprise-grade stability.</p>
+                    </div>
+                </div>
+                <div class="grid" style="margin-top: 3rem;">
+                    <div class="card">
+                        <h4>India R&D Hub</h4>
+                        <p style="font-size: 0.9rem;">High-skilled engineering center focused on rapid development and cost-efficiency.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Georgia Advisory</h4>
+                        <p style="font-size: 0.9rem;">Strategic think-tank identifying AI adoption barriers for Eastern EMEA markets.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 10: Japan Strategy -->
+        <section class="slide">
+            <div class="content">
+                <div class="tagline">The Bridge</div>
+                <h2>The "Keiretsu" GTM Strategy</h2>
+                <div class="grid">
+                    <div class="card">
+                        <div class="number">Ph 1</div>
+                        <h3>Partnerships</h3>
+                        <p>Align with major Japanese Systems Integrators (SIs) and Trading Houses (Sogo Shosha).</p>
+                    </div>
+                    <div class="card">
+                        <div class="number">Ph 2</div>
+                        <h3>Local Trust</h3>
+                        <p>Establish Tokyo-based HQ for Sales and Customer Success. Localize UI/UX for Japan.</p>
+                    </div>
+                    <div class="card">
+                        <div class="number">Ph 3</div>
+                        <h3>Governance</h3>
+                        <p>Become the 'Local Standard' for AI safety and data sovereignty in Japan.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 11: The Ask -->
+        <section class="slide slide-dark">
+            <div class="content">
+                <div class="tagline" style="background: var(--accent-gradient);">Investment</div>
+                <h2>Fueling Global Scaling</h2>
+                <div style="font-size: 3rem; font-weight: 800; margin-bottom: 2rem;">Target: $2.5M Seed Round</div>
+                <div class="grid">
+                    <div class="card">
+                        <h4 style="color: var(--secondary);">40% - R&D Expansion</h4>
+                        <p>Scaling the engineering team and advanced feature set.</p>
+                    </div>
+                    <div class="card">
+                        <h4 style="color: var(--secondary);">40% - Japan Entry</h4>
+                        <p>Setting up Tokyo entity and local sales leadership.</p>
+                    </div>
+                    <div class="card">
+                        <h4 style="color: var(--secondary);">20% - Ops & Growth</h4>
+                        <p>Marketing, Legal, and infrastructure scaling.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 12: Vision -->
+        <section class="slide">
+            <div class="content" style="text-align: center;">
+                <div class="tagline">The Future</div>
+                <h2>Building the Global AI Backbone</h2>
+                <p style="margin: 2rem auto; font-size: 1.8rem; color: var(--dark); font-weight: 700;">"We aren't just building a tool; we are building the infrastructure for the next industrial revolution."</p>
+                <a href="#" class="btn">Explore nexforgeai.app</a>
+                <div style="margin-top: 5rem; display: flex; justify-content: center; gap: 4rem;">
+                    <div>
+                        <strong>Contact</strong><br>
+                        h.pal@ainexforge.com
+                    </div>
+                    <div>
+                        <strong>Strategy HQ</strong><br>
+                        Tbilisi / London / New Delhi
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <footer>© 2026 AINexForge. All rights reserved.</footer>
+
+    <script>
+        const deck = document.getElementById('deck');
+        const progressBar = document.getElementById('progress-bar');
+        const slides = document.querySelectorAll('.slide');
+
+        deck.addEventListener('scroll', () => {
+            const scrollTop = deck.scrollTop;
+            const height = deck.scrollHeight - deck.clientHeight;
+            const scrolled = (scrollTop / height) * 100;
+            progressBar.style.width = scrolled + "%";
+        });
+
+        // Add keyboard navigation
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+                deck.scrollBy({ top: window.innerHeight, behavior: 'smooth' });
+            }
+            if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+                deck.scrollBy({ top: -window.innerHeight, behavior: 'smooth' });
+            }
+        });
+    </script>
+</body>
+</html>
